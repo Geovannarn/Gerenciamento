@@ -1,3 +1,6 @@
+from Evento import listaEventos, adicionarEvento
+
+
 def displayMenu():
     print("\n=== Planejador de Eventos do Campus ===")
     print("1. Adicionar Evento")
@@ -7,13 +10,20 @@ def displayMenu():
     print("5. Gerar Relatório")
     print("6. Sair")
 
+
 def getEscolhaDoUsuario():
     while True:
         try:
             escolha = int(input("Escolha uma opção: "))
-            return escolha
+
+            if 1 <= escolha <= 6:
+                return escolha
+
+            print("Escolha uma opção entre 1 e 6.")
+
         except ValueError:
             print("Digite apenas um número.")
+
 
 def visualizarEventos(listaEventos):
     if not listaEventos:
@@ -32,6 +42,7 @@ def visualizarEventos(listaEventos):
         print(f"Categoria: {evento['categoria']}")
         print(f"Status: {status}")
 
+
 def filtrarEventosPorCategoria(listaEventos, categoria):
     eventosFiltrados = []
 
@@ -41,14 +52,6 @@ def filtrarEventosPorCategoria(listaEventos, categoria):
 
     return eventosFiltrados
 
-   categoria = input("Digite a categoria: ")
-
-eventos = filtrarEventosPorCategoria(listaEventos, categoria)
-
-if not eventos:
-    print("Nenhum evento encontrado nessa categoria.")
-else:
-    visualizarEventos(eventos)
 
 def marcarEventoAtendido(listaEventos, id):
     for evento in listaEventos:
@@ -59,6 +62,7 @@ def marcarEventoAtendido(listaEventos, id):
 
     print("Evento não encontrado.")
     return False
+
 
 def gerarRelatorio(listaEventos):
     totalEventos = len(listaEventos)
@@ -95,3 +99,56 @@ def gerarRelatorio(listaEventos):
 
     print(f"\nEventos participados: {totalParticipados}")
     print(f"Percentual participado: {percentual:.2f}%")
+
+
+while True:
+    displayMenu()
+
+    escolha = getEscolhaDoUsuario()
+
+    if escolha == 1:
+        print("\n=== ADICIONAR EVENTO ===")
+
+        nome = input("Nome: ")
+        data = input("Data (AAAA-MM-DD): ")
+        local = input("Local: ")
+        categoria = input("Categoria: ")
+
+        adicionarEvento(
+            listaEventos,
+            nome,
+            data,
+            local,
+            categoria
+        )
+
+    elif escolha == 2:
+        visualizarEventos(listaEventos)
+
+    elif escolha == 3:
+        categoria = input("Digite a categoria: ")
+
+        eventos = filtrarEventosPorCategoria(
+            listaEventos,
+            categoria
+        )
+
+        if not eventos:
+            print("Nenhum evento encontrado nessa categoria.")
+        else:
+            visualizarEventos(eventos)
+
+    elif escolha == 4:
+        try:
+            idEvento = int(input("Digite o ID do evento: "))
+            marcarEventoAtendido(listaEventos, idEvento)
+
+        except ValueError:
+            print("Digite um ID válido.")
+
+    elif escolha == 5:
+        gerarRelatorio(listaEventos)
+
+    elif escolha == 6:
+        print("Programa encerrado.")
+        break
