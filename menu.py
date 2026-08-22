@@ -59,3 +59,39 @@ def marcarEventoAtendido(listaEventos, id):
 
     print("Evento não encontrado.")
     return False
+
+def gerarRelatorio(listaEventos):
+    totalEventos = len(listaEventos)
+
+    print("\n=== RELATÓRIO ===")
+    print(f"Total de eventos: {totalEventos}")
+
+    if totalEventos == 0:
+        print("Nenhum evento cadastrado.")
+        return
+
+    categorias = {}
+
+    for evento in listaEventos:
+        categoria = evento["categoria"]
+
+        if categoria in categorias:
+            categorias[categoria] += 1
+        else:
+            categorias[categoria] = 1
+
+    print("\nEventos por categoria:")
+
+    for categoria, quantidade in categorias.items():
+        print(f"{categoria}: {quantidade}")
+
+    totalParticipados = 0
+
+    for evento in listaEventos:
+        if evento["participado"]:
+            totalParticipados += 1
+
+    percentual = (totalParticipados / totalEventos) * 100
+
+    print(f"\nEventos participados: {totalParticipados}")
+    print(f"Percentual participado: {percentual:.2f}%")
