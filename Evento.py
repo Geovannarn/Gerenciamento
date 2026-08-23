@@ -74,3 +74,29 @@ def procurarEventoPorNome(listaEventos, nome):
             print(f"[{evento['id']}] {evento['nome']} | {evento['data']} | {evento['local']} | {evento['categoria']} | {status}")
 
     return encontrados
+def deletarEvento(listaEventos, id):
+    for evento in listaEventos:
+        if evento["id"] == id:
+            listaEventos.remove(evento)
+            print(f"Evento '{evento['nome']}' (id {id}) removido com sucesso.")
+            return True
+
+    print(f"Erro: nenhum evento encontrado com id {id}.")
+    return False
+
+
+if __name__ == "__main__":
+    adicionarEvento(listaEventos, "Semana de Tecnologia", "2025-11-10", "Auditório Central", "Tecnologia")
+    adicionarEvento(listaEventos, "Feira de Cultura", "2025-12-01", "Ginásio", "Cultura")
+    adicionarEvento(listaEventos, "", "2025-11-10", "Auditório Central", "Tecnologia")   # deve falhar (nome vazio)
+    adicionarEvento(listaEventos, "Evento Teste", "10/11/2025", "Local X", "Cultura")    # deve falhar (data errada)
+
+    print("\n--- Lista de Eventos ---")
+    listarEventos(listaEventos)
+
+    procurarEventoPorNome(listaEventos, "tecnologia")
+
+    deletarEvento(listaEventos, 2)
+
+    print("\n--- Lista Após Remoção ---")
+    listarEventos(listaEventos)
