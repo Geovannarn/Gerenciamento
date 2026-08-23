@@ -88,7 +88,7 @@ def deletarEvento(listaEventos, id):
 if __name__ == "__main__":
     adicionarEvento(listaEventos, "Semana de Tecnologia", "2025-11-10", "Auditório Central", "Tecnologia")
     adicionarEvento(listaEventos, "Feira de Cultura", "2025-12-01", "Ginásio", "Cultura")
-    adicionarEvento(listaEventos, "", "2025-11-10", "Auditório Central", "Tecnologia")   # deve falhar (nome vazio)
+    adicionarEvento(listaEventos, "", "2025-11-10", "Auditório Central", "Tecnologia")   # TEM QUE FALHAR  (nome vazio)
     adicionarEvento(listaEventos, "Evento Teste", "10/11/2025", "Local X", "Cultura")    # deve falhar (data errada)
 
     print("\n--- Lista de Eventos ---")
