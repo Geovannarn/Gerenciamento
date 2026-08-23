@@ -14,7 +14,7 @@ def validarData(dataStr):
 
 
 def adicionarEvento(listaEventos, nome, data, local, categoria):
-    if not nome or not local or not categoria:
+    if not nome.strip() or not local.strip() or not categoria.strip():
         print("Erro: nome, local e categoria não podem estar vazios.")
         return False
 
@@ -34,7 +34,7 @@ def adicionarEvento(listaEventos, nome, data, local, categoria):
     }
 
     listaEventos.append(novoEvento)
-    print(f"Evento '{nome}' adicionado com sucesso!")
+    print(f"Evento '{nome}' (id {novoId}) adicionado com sucesso!")
     return True
 
 
@@ -63,14 +63,14 @@ def procurarEventoPorNome(listaEventos, nome):
             print(f"[{evento['id']}] {evento['nome']} | {evento['data']} | {evento['local']} | {evento['categoria']} | {status}")
 
     return encontrados
-def deletarEvento(listaEventos, id):
+def deletarEvento(listaEventos, id_evento):
     for evento in listaEventos:
-        if evento["id"] == id:
+        if evento["id"] == id_evento:
             listaEventos.remove(evento)
-            print(f"Evento '{evento['nome']}' (id {id}) removido com sucesso.")
+            print(f"Evento '{evento['nome']}' (id {id_evento}) removido com sucesso.")
             return True
 
-    print(f"Erro: nenhum evento encontrado com id {id}.")
+    print(f"Erro: nenhum evento encontrado com id {id_evento}.")
     return False
 
 
@@ -83,9 +83,18 @@ if __name__ == "__main__":
     print("\n--- Lista de Eventos ---")
     listarEventos(listaEventos)
 
+    print("\n--- Busca por Nome ---")
     procurarEventoPorNome(listaEventos, "tecnologia")
 
-    deletarEvento(listaEventos, 2)
+    print("\n--- Busca por Categoria ---")
+    procurarEventoPorCategoria(listaEventos, "Tecnologia")
+
+    print("\n--- Deletar por id ---")
+    deletarEvento(listaEventos, id_eventos=1)
+
+
+    print("\n--- Deletar por nome ---")
+    deletarEvento(listaEventos, nome="Segurança Quântica" )
 
     print("\n--- Lista Após Remoção ---")
     listarEventos(listaEventos)
