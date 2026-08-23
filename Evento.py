@@ -5,17 +5,6 @@ from datetime import datetime
 
 listaEventos = []
 
-# Formato de cada evento (dicionário):
-# {
-#     "id": int,             # identificador único do evento
-#     "nome": str,           # nome do evento
-#     "data": str,           # formato AAAA-MM-DD
-#     "local": str,          # local onde ocorre o evento
-#     "categoria": str,      # ex: "Tecnologia", "IA", "Cultura Tecnologica"
-#     "participado": bool    # true se o participante confirmou presença
-# }
-
-
 def validarData(dataStr):
     try:
         datetime.strptime(dataStr, '%Y-%m-%d')
@@ -33,7 +22,7 @@ def adicionarEvento(listaEventos, nome, data, local, categoria):
         print("Erro: data inválida. Use o formato AAAA-MM-DD.")
         return False
 
-    novoId = len(listaEventos) + 1
+    novoId = max((evento["id"] for evento in listaEventos), default=0) +1
 
     novoEvento = {
         "id": novoId,
@@ -89,7 +78,7 @@ if __name__ == "__main__":
     adicionarEvento(listaEventos, "Semana de Tecnologia", "2025-11-10", "Auditório Central", "Tecnologia")
     adicionarEvento(listaEventos, "Feira de Cultura", "2025-12-01", "Ginásio", "Cultura")
     adicionarEvento(listaEventos, "", "2025-11-10", "Auditório Central", "Tecnologia")   # TEM QUE FALHAR  (nome vazio)
-    adicionarEvento(listaEventos, "Evento Teste", "10/11/2025", "Local X", "Cultura")    # deve falhar (data errada)
+    adicionarEvento(listaEventos, "Evento Teste", "10/11/2025", "Local X", "Cultura")    # TEM QUE FALHAR   (data errada)
 
     print("\n--- Lista de Eventos ---")
     listarEventos(listaEventos)
